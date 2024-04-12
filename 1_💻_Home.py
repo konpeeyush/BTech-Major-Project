@@ -69,8 +69,6 @@ with st.form(key="student_form"):
     soft_skills = st.multiselect("Soft Skills:", options=SOFT_SKILLS)
     hard_skills = st.multiselect("Hard Skills:", options=HARD_SKILLS)
     co_curricular = st.multiselect("Co-Curricular:", options=CO_CURRICULAR)
-    cpi = st.slider("Enter your CPI", 6.0, 10.0)
-    gdpi = st.slider("Enter GDPI Score", 10.0, 15.0)
 
     # Mark mandatory fields
     st.markdown("**required*")
@@ -96,8 +94,6 @@ with st.form(key="student_form"):
                         "Soft Skills": join(soft_skills),
                         "Hard Skills": join(hard_skills),
                         "Co-Curricular": join(co_curricular),
-                        "CPI": cpi,
-                        "GDPI": gdpi,
                     }
                 ]
             )

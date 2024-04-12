@@ -1,5 +1,5 @@
 /assets
 /faiss_index
-/myenv
+/py3.9
 .env
 .streamlit
