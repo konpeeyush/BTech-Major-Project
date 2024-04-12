@@ -113,62 +113,62 @@ def generate_pie_charts(df):
         st.plotly_chart(co_curricular_fig)
 
 
-def generate_bar_chart(df):
-    # Create slider for CPI range
-    min_cpi = df["CPI"].min()
-    max_cpi = df["CPI"].max()
-    selected_cpi_range = st.slider(
-        "Select CPI Range", min_cpi, max_cpi, (min_cpi, max_cpi), step=0.15
-    )
+# def generate_bar_chart(df):
+#     # Create slider for CPI range
+#     min_cpi = df["CPI"].min()
+#     max_cpi = df["CPI"].max()
+#     selected_cpi_range = st.slider(
+#         "Select CPI Range", min_cpi, max_cpi, (min_cpi, max_cpi), step=0.15
+#     )
 
-    # Filter DataFrame based on selected CPI range
-    filtered_df = df[
-        (df["CPI"] >= selected_cpi_range[0]) & (df["CPI"] <= selected_cpi_range[1])
-    ]
+#     # Filter DataFrame based on selected CPI range
+#     filtered_df = df[
+#         (df["CPI"] >= selected_cpi_range[0]) & (df["CPI"] <= selected_cpi_range[1])
+#     ]
 
-    # Create bar chart for CPI
-    cpi_chart = px.bar(
-        filtered_df,
-        x="Student Name",
-        y="CPI",
-        title="CPI Distribution",
-        labels={"CPI": "CPI"},
-    )
+#     # Create bar chart for CPI
+#     cpi_chart = px.bar(
+#         filtered_df,
+#         x="Student Name",
+#         y="CPI",
+#         title="CPI Distribution",
+#         labels={"CPI": "CPI"},
+#     )
 
-    # Create slider for GDPI range
-    min_gdpi = df["GDPI"].min()
-    max_gdpi = df["GDPI"].max()
-    selected_gdpi_range = st.slider(
-        "Select GDPI Range", min_gdpi, max_gdpi, (min_gdpi, max_gdpi), step=0.15
-    )
+#     # Create slider for GDPI range
+#     min_gdpi = df["GDPI"].min()
+#     max_gdpi = df["GDPI"].max()
+#     selected_gdpi_range = st.slider(
+#         "Select GDPI Range", min_gdpi, max_gdpi, (min_gdpi, max_gdpi), step=0.15
+#     )
 
-    # Filter DataFrame based on selected GDPI range
-    filtered_df_gdpi = df[
-        (df["GDPI"] >= selected_gdpi_range[0]) & (df["GDPI"] <= selected_gdpi_range[1])
-    ]
+#     # Filter DataFrame based on selected GDPI range
+#     filtered_df_gdpi = df[
+#         (df["GDPI"] >= selected_gdpi_range[0]) & (df["GDPI"] <= selected_gdpi_range[1])
+#     ]
 
-    # Create bar chart for GDPI
-    gdpi_chart = px.bar(
-        filtered_df_gdpi,
-        x="Student Name",
-        y="GDPI",
-        title="GDPI Distribution",
-        labels={"GDPI": "GDPI"},
-    )
+#     # Create bar chart for GDPI
+#     gdpi_chart = px.bar(
+#         filtered_df_gdpi,
+#         x="Student Name",
+#         y="GDPI",
+#         title="GDPI Distribution",
+#         labels={"GDPI": "GDPI"},
+#     )
     
-    col1, col2 = st.columns(2)
-    # Display the charts
-    with col1:
-        st.plotly_chart(cpi_chart)
-    with col2:
-        st.plotly_chart(gdpi_chart)
+#     col1, col2 = st.columns(2)
+#     # Display the charts
+#     with col1:
+#         st.plotly_chart(cpi_chart)
+#     with col2:
+#         st.plotly_chart(gdpi_chart)
 
 
 # Call the function to generate pie charts
 generate_pie_charts(df)
 
 # Call the function to generate bar charts
-generate_bar_chart(df)
+# generate_bar_chart(df)
 
 # Download as CSV
 @st.cache_data
