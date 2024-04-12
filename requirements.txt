@@ -7,4 +7,4 @@ chromadb
 faiss-cpu
 langchain_google_genai
 plotly
-streamlit_gsheets
+st-gsheets-connection
