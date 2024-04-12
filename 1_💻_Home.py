@@ -19,7 +19,7 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 existing_data = conn.read(worksheet="Students", usecols=list(range(8)), ttl=5)
 existing_data = existing_data.dropna(how="all")
 
-# List of skills (Soft/Hard), Languages Known, CPI and GDPI scores
+# List of skills (Soft/Hard), Languages Known
 
 LANGUAGES_KNOWN = [
     "C++",

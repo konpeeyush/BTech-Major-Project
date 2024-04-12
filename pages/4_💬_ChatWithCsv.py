@@ -23,7 +23,7 @@ def main():
 
         agent = create_csv_agent(llm, csv_file, verbose=True, agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION)
 
-        query = st.text_input("Which type of movie do you want to watch ?: ")
+        query = st.text_input("Still in testing ")
 
         if query is not None and query != "":
             with st.spinner(text="Loading..."):
