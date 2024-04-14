@@ -2,13 +2,6 @@ import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 import pandas as pd
 
-
-st.set_page_config(
-    page_title="Parsing framework for profiling and recommendation based on resume",
-    page_icon="👨‍💻",
-    layout="wide"
-)
-
 st.title("Student Data Entry Form")
 st.markdown("Enter the details of your relevant skills")
 
@@ -16,7 +9,7 @@ st.markdown("Enter the details of your relevant skills")
 conn = st.connection("gsheets", type=GSheetsConnection)
 
 # Fetching existing data
-existing_data = conn.read(worksheet="Students", usecols=list(range(8)), ttl=5)
+existing_data = conn.read(worksheet="Students", usecols=list(range(6)), ttl=5)
 existing_data = existing_data.dropna(how="all")
 
 # List of skills (Soft/Hard), Languages Known

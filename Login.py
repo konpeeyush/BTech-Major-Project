@@ -1,0 +1,23 @@
+import streamlit as st
+from time import sleep
+from Hooks.Navigation import make_sidebar
+
+make_sidebar()
+st.title("Welcome to Our Project")
+
+st.write("Please log in to continue (username `test`, password `test`).")
+
+username = st.text_input("Username")
+password = st.text_input("Password", type="password")
+
+def login():
+    if st.button("Log in", type="primary"):
+        if username == "test" and password == "test":
+            st.session_state.logged_in = True
+            st.success("Logged in successfully!")
+            sleep(0.5)
+            st.switch_page("pages/1_Home.py")
+        else:
+            st.error("Incorrect username or password")
+
+login()

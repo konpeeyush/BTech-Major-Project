@@ -3,3 +3,4 @@
 /py3.9
 .env
 .streamlit
+config.yaml
