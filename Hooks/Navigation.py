@@ -23,7 +23,8 @@ def make_sidebar():
         if st.session_state.get("logged_in", False):
             st.page_link("pages/1_Home.py")
             st.page_link("pages/2_Admin.py")
-            st.page_link("pages/3_Recruiter.py")
+            st.page_link("pages/3_Resume_Parser.py")
+            st.page_link("pages/4_NLP_Parser.py")
 
             st.write("")
             st.write("")

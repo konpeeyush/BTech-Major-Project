@@ -2,7 +2,6 @@ import streamlit as st
 from PyPDF2 import PdfReader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
-
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 import google.generativeai as genai
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -10,14 +9,34 @@ from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
 from dotenv import load_dotenv
 from langchain_community.vectorstores import FAISS
-
-# from langchain.vectorstores import faiss
-
+import yaml
+from yaml.loader import SafeLoader
+import streamlit_authenticator as stauth
 
 load_dotenv()
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-st.title("Assits you with the résume of candidates")
+
+with open("config.yaml") as file:
+    config = yaml.load(file, Loader=SafeLoader)
+    authenticator = stauth.Authenticate(
+    config["credentials"],
+    cookie_key="some_signature_key",
+    cookie_name="some_cookie_name",
+    cookie_expiry_days=30,
+)
+
+
+def auth():
+    authenticator.login()
+    if st.session_state["authentication_status"]:
+        authenticator.logout()
+        st.write(f'Welcome *{st.session_state["name"]}*')
+        renderPage()
+    elif st.session_state["authentication_status"] is False:
+        st.error("Username/password is incorrect")
+    elif st.session_state["authentication_status"] is None:
+        st.warning("Please enter your username and password")
 
 
 # Function to read all the texts
@@ -83,21 +102,30 @@ def user_input(user_question):
     st.write("Reply: ", response["output_text"])
 
 
-def main():
+def renderPage():
+    st.title("Resume Parser Technique using Optical Character Reading *")
+    st.markdown("**This feature is in beta**")
+    
     pdf_docs = st.file_uploader(
         "Upload your PDF files and click on the submit button", type="pdf"
     )
-    if st.button("Submit"):
-        with st.spinner("Processing..."):
-            raw_text = get_pdf_text(pdf_docs)
-            text_chunks = get_text_chunks(raw_text)
-            get_vector_store(text_chunks)
-            st.success("Done")
 
-    user_question = st.text_input("Ask any question")
-    if user_question:
-        user_input(user_question)
+    if pdf_docs:
+        if st.button("Submit"):
+            with st.spinner("Processing..."):
+                raw_text = get_pdf_text(pdf_docs)
+                text_chunks = get_text_chunks(raw_text)
+                get_vector_store(text_chunks)
+                st.success("Done")
 
+        col1, col2 = st.columns(2)
+        if col1.button("List all the skills"):
+            user_question = "List all the skills given in the document"
+            user_input(user_question)
 
-if __name__ == "__main__":
-    main()
+        if col2.button("Summarize resume"):
+            user_question = "What is the introduction given in the document"
+            user_input(user_question)
+    
+
+auth()

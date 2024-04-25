@@ -1,0 +1,14 @@
+credentials:
+  usernames:
+    harsh:
+      email: harsh@gla
+      name: Harsh Kumar
+      password: abc 
+    digvijay:
+      email: digvijay@gla
+      name: Digvijay Singh
+      password: def 
+  cookie:
+    expiry_days: 30
+    key: some_signature_key # Must be string
+    name: some_cookie_name

@@ -1,4 +1,4 @@
-Student ID ,Student Name    ,Languages Known             ,Soft Skills                                                 ,Hard Skills                                               ,Co-curricular                         ,CPI ,GDPI
+Student-ID ,Student Name    ,Languages Known             ,Soft Skills                                                 ,Hard Skills                                               ,Co-Curricular                         ,CPI ,GDPI
  201550001 ,Aarav Kumar     ,"C++, HTML, PYTHON"         ,"Problem Solving Skills, Effective Communication Skills"    ,"Data Structures and Algorithms, Web Development"         ,"Leetcode, Competitive Programming"   ,8.5 ,12.3
  201550002 ,Aditi Sharma    ,"C, JAVA"                   ,"Time Management Skills, Leadership Skills"                 ,"Web Development, Game Development"                       ,"Leetcode, CodeChef"                  ,7.8 ,13.2
  201550003 ,Ananya Singh    ,"C++, JAVA-SCRIPT"          ,"Problem Solving Skills, Flexible"                          ,"Machine Learning, Artificial Intelligence"               ,"Competitive Programming, CodeForces" ,9.2 ,11.5
