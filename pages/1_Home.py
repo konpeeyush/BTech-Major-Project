@@ -55,7 +55,7 @@ CO_CURRICULAR = ["Leetcode", "Competitive Programming", "CodeChef", "CodeForces"
 # Student Data Form
 with st.form(key="student_form"):
     student_id = st.number_input(
-        "Enter Your roll number*", min_value=201550000, max_value=201551000
+        "Enter Your roll number*", min_value=201550000, max_value=201550100
     )
     student_name = st.text_input("Enter you Name*")
     languages_known = st.multiselect("Languages Known:", options=LANGUAGES_KNOWN)
@@ -78,18 +78,19 @@ with st.form(key="student_form"):
             st.warning("This roll number already exists.")
             st.stop()
         else:
-            student_data = pd.DataFrame(
-                [
-                    {
-                        "Student ID": student_id,
-                        "Student Name": student_name,
-                        "Languages Known": join(languages_known),
-                        "Soft Skills": join(soft_skills),
-                        "Hard Skills": join(hard_skills),
-                        "Co-Curricular": join(co_curricular),
-                    }
-                ]
-            )
+            # student_data = pd.DataFrame(
+            #     [
+            #         {
+            #             "Student ID": student_id,
+            #             "Student Name": student_name,
+            #             "Languages Known": ", ".join(languages_known),
+            #             "Soft Skills": ", ".join(soft_skills),
+            #             "Hard Skills": ", ".join(hard_skills),
+            #             "Co-Curricular": ", ".join(co_curricular),
+            #         }
+            #     ]
+            # )
+            
 
             # Add the new student data to the existing data
             updated_df = pd.concat([existing_data, student_data], ignore_index=True)
