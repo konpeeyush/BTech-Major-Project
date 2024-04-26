@@ -70,23 +70,28 @@ def missingStudents(df):
             selected_student = st.selectbox(
                 "Select a student", st.session_state.missing_students["Student ID"]
             )
-            technical = st.slider("Technical", min_value=6.0, max_value=20.0, step=0.15)
-            aptitude = st.slider("Aptitude", min_value=6.0, max_value=20.0, step=0.15)
-            cpi = st.slider("CPI", min_value=6.0, max_value=10.0, step=0.15)
-            gdpi = st.slider("GDPI", min_value=8.0, max_value=15.0, step=0.15)
+            technical = st.slider("Technical*", min_value=0.0, max_value=20.0, step=0.15)
+            aptitude = st.slider("Aptitude*", min_value=0.0, max_value=20.0, step=0.15)
+            cpi = st.slider("CPI*", min_value=0.0, max_value=10.0, step=0.15)
+            gdpi = st.slider("GDPI*", min_value=0.0, max_value=15.0, step=0.15)
 
+            st.markdown("**required*")
             submit_button = st.form_submit_button("Submit Your Details")
 
             if submit_button:
-                # Update the dataset with filled details
-                df.loc[df["Student ID"] == selected_student, "Technical"] = technical
-                df.loc[df["Student ID"] == selected_student, "Aptitude"] = aptitude
-                df.loc[df["Student ID"] == selected_student, "CPI"] = cpi
-                df.loc[df["Student ID"] == selected_student, "GDPI"] = gdpi
+                if not technical or not aptitude or not cpi or not gdpi:
+                    st.warning("Ensure all mandatory fields are filled.")
+                    st.stop()
+                else:
+                    # Update the dataset with filled details
+                    df.loc[df["Student ID"] == selected_student, "Technical"] = technical
+                    df.loc[df["Student ID"] == selected_student, "Aptitude"] = aptitude
+                    df.loc[df["Student ID"] == selected_student, "CPI"] = cpi
+                    df.loc[df["Student ID"] == selected_student, "GDPI"] = gdpi
 
-                # Write the updated data back to Google Sheets
-                conn.update(worksheet="Students", data=df)
-                st.success("Data updated successfully!")
+                    # Write the updated data back to Google Sheets
+                    conn.update(worksheet="Students", data=df)
+                    st.success("Data updated successfully!")
 
 
 # Function to visualize to pie chart

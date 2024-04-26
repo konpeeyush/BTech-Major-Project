@@ -9,8 +9,8 @@ st.markdown("Enter the details of your relevant skills")
 conn = st.connection("gsheets", type=GSheetsConnection)
 
 # Fetching existing data
-existing_data = conn.read(worksheet="Students", usecols=list(range(6)), ttl=5)
-existing_data = existing_data.dropna(how="all")
+df = conn.read(worksheet="Students", usecols=list(range(10)), ttl=5)
+df = df.dropna(how="all")
 
 # List of skills (Soft/Hard), Languages Known
 
@@ -73,27 +73,29 @@ with st.form(key="student_form"):
             st.warning("Ensure all mandatory fields are filled.")
             st.stop()
         elif (
-            existing_data["Student ID"].astype(str).str.contains(str(student_id)).any()
+            df["Student ID"].astype(str).str.contains(str(student_id)).any()
         ):
             st.warning("This roll number already exists.")
             st.stop()
         else:
-            # student_data = pd.DataFrame(
-            #     [
-            #         {
-            #             "Student ID": student_id,
-            #             "Student Name": student_name,
-            #             "Languages Known": ", ".join(languages_known),
-            #             "Soft Skills": ", ".join(soft_skills),
-            #             "Hard Skills": ", ".join(hard_skills),
-            #             "Co-Curricular": ", ".join(co_curricular),
-            #         }
-            #     ]
-            # )
-            
-
+            student_data = pd.DataFrame(
+                [
+                    {
+                        "Student ID": student_id,
+                        "Student Name": student_name,
+                        "Languages Known": ", ".join(languages_known),
+                        "Soft Skills": ", ".join(soft_skills),
+                        "Hard Skills": ", ".join(hard_skills),
+                        "Co-Curricular": ", ".join(co_curricular),
+                        "Technical":None,
+                        "Aptitude":None,
+                        "CPI":None,
+                        "GDPI":None,
+                    }
+                ]
+            )
             # Add the new student data to the existing data
-            updated_df = pd.concat([existing_data, student_data], ignore_index=True)
+            updated_df = pd.concat([df, student_data], ignore_index=True)
 
             # Update Google Sheets with the new student data
             conn.update(worksheet="Students", data=updated_df)

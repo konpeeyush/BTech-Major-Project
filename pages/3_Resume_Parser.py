@@ -9,34 +9,9 @@ from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
 from dotenv import load_dotenv
 from langchain_community.vectorstores import FAISS
-import yaml
-from yaml.loader import SafeLoader
-import streamlit_authenticator as stauth
 
 load_dotenv()
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-
-
-with open("config.yaml") as file:
-    config = yaml.load(file, Loader=SafeLoader)
-    authenticator = stauth.Authenticate(
-    config["credentials"],
-    cookie_key="some_signature_key",
-    cookie_name="some_cookie_name",
-    cookie_expiry_days=30,
-)
-
-
-def auth():
-    authenticator.login()
-    if st.session_state["authentication_status"]:
-        authenticator.logout()
-        st.write(f'Welcome *{st.session_state["name"]}*')
-        renderPage()
-    elif st.session_state["authentication_status"] is False:
-        st.error("Username/password is incorrect")
-    elif st.session_state["authentication_status"] is None:
-        st.warning("Please enter your username and password")
 
 
 # Function to read all the texts
@@ -128,4 +103,4 @@ def renderPage():
             user_input(user_question)
     
 
-auth()
+renderPage()
